@@ -16,11 +16,18 @@ export default {
   methods: {
     searchMovie() {
       axios
-        .get(this.store.apiDefaultUrl, {
+        .get(this.store.apiMovieUrl, {
           params: { api_key: this.store.apiKey, query: this.store.searchKey },
         })
         .then((response) => {
-          this.store.searchResults = response.data.results;
+          this.store.searchMovieResults = response.data.results;
+        });
+      axios
+        .get(this.store.apiTvUrl, {
+          params: { api_key: this.store.apiKey, query: this.store.searchKey },
+        })
+        .then((response) => {
+          this.store.searchTvResults = response.data.results;
         });
       this.store.searchKey = "";
     },

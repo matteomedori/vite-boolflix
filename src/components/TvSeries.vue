@@ -1,7 +1,7 @@
 <script>
 export default {
-  name: "Movie",
-  props: ["title", "originalTitle", "originalLanguage", "vote", "movieIndex"],
+  name: "TvSeries",
+  props: ["name", "originalName", "originalLanguage", "vote", "tvIndex"],
   methods: {
     getImagePath(url) {
       return new URL(url, import.meta.url).href;
@@ -12,9 +12,9 @@ export default {
 
 <template>
   <li>
-    Film {{ movieIndex + 1 }}:
-    <div>Titolo: {{ title }}</div>
-    <div>Titolo originale: {{ originalTitle }}</div>
+    Series {{ tvIndex + 1 }}:
+    <div>Titolo: {{ name }}</div>
+    <div>Titolo originale: {{ originalName }}</div>
     <div v-show="originalLanguage === 'en'">
       Lingua:
       <img :src="getImagePath('../assets/img/uk_flag.png')" alt="#" />
