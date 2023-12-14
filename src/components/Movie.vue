@@ -1,7 +1,13 @@
 <script>
+import { store } from "../store";
 export default {
   name: "Movie",
-  props: ["title", "originalTitle", "originalLanguage", "vote", "movieIndex"],
+  props: ["movie"],
+  data() {
+    return {
+      store,
+    };
+  },
   methods: {
     getImagePath(url) {
       return new URL(url, import.meta.url).href;
@@ -12,21 +18,37 @@ export default {
 
 <template>
   <li>
-    Film {{ movieIndex + 1 }}:
-    <div>Titolo: {{ title }}</div>
-    <div>Titolo originale: {{ originalTitle }}</div>
-    <div v-show="originalLanguage === 'en'">
+    <div>Titolo: {{ movie.title }}</div>
+    <div>Titolo originale: {{ movie.original_title }}</div>
+    <div v-show="movie.original_language === 'en'">
       Lingua:
-      <img :src="getImagePath('../assets/img/uk_flag.png')" alt="#" />
+      <img
+        class="lang"
+        :src="getImagePath('../assets/img/uk_flag.png')"
+        alt="#"
+      />
     </div>
-    <div v-show="originalLanguage === 'it'">
+    <div v-show="movie.original_language === 'it'">
       Lingua:
-      <img :src="getImagePath('../assets/img/italy_flag.png')" alt="#" />
+      <img
+        class="lang"
+        :src="getImagePath('../assets/img/italy_flag.png')"
+        alt="#"
+      />
     </div>
-    <div v-show="originalLanguage !== 'it' && originalLanguage !== 'en'">
-      Lingua: {{ originalLanguage }}
+    <div
+      v-show="
+        movie.original_language !== 'it' && movie.original_language !== 'en'
+      "
+    >
+      Lingua: {{ movie.original_language }}
     </div>
-    <div>Voto: {{ vote }}</div>
+    <div>Voto: {{ movie.vote_average }}</div>
+    <img
+      v-if="movie.poster_path !== null"
+      :src="store.apiImgUrl + movie.poster_path"
+      alt=""
+    />
   </li>
 </template>
 
@@ -38,6 +60,10 @@ li {
 }
 
 img {
+  max-width: 100%;
+}
+
+img.lang {
   max-width: 25px;
   height: 15px;
 }

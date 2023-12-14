@@ -21,24 +21,13 @@ export default {
   <main>
     <h2 v-if="store.searchMovieResults.length !== 0">Movies</h2>
     <ul>
-      <Movie
-        v-for="(movie, index) in store.searchMovieResults"
-        :title="movie.title"
-        :originalTitle="movie.original_title"
-        :originalLanguage="movie.original_language"
-        :vote="movie.vote_average"
-        :movieIndex="index"
-      />
+      <Movie v-for="movie in store.searchMovieResults" :movie="movie" />
     </ul>
     <h2 v-if="store.searchTvResults.length !== 0">Tv Series</h2>
     <ul>
       <TvSeries
-        v-for="(tvSeries, index) in store.searchTvResults"
-        :name="tvSeries.name"
-        :originalName="tvSeries.original_name"
-        :originalLanguage="tvSeries.original_language"
-        :vote="tvSeries.vote_average"
-        :tvIndex="index"
+        v-for="tvSeries in store.searchTvResults"
+        :tvSeries="tvSeries"
       />
     </ul>
   </main>

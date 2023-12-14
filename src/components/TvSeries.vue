@@ -1,7 +1,13 @@
 <script>
+import { store } from "../store";
 export default {
   name: "TvSeries",
-  props: ["name", "originalName", "originalLanguage", "vote", "tvIndex"],
+  props: ["tvSeries"],
+  data() {
+    return {
+      store,
+    };
+  },
   methods: {
     getImagePath(url) {
       return new URL(url, import.meta.url).href;
@@ -12,21 +18,38 @@ export default {
 
 <template>
   <li>
-    Series {{ tvIndex + 1 }}:
-    <div>Titolo: {{ name }}</div>
-    <div>Titolo originale: {{ originalName }}</div>
-    <div v-show="originalLanguage === 'en'">
+    <div>Titolo: {{ tvSeries.name }}</div>
+    <div>Titolo originale: {{ tvSeries.original_name }}</div>
+    <div v-show="tvSeries.original_language === 'en'">
       Lingua:
-      <img :src="getImagePath('../assets/img/uk_flag.png')" alt="#" />
+      <img
+        class="lang"
+        :src="getImagePath('../assets/img/uk_flag.png')"
+        alt="#"
+      />
     </div>
-    <div v-show="originalLanguage === 'it'">
+    <div v-show="tvSeries.original_language === 'it'">
       Lingua:
-      <img :src="getImagePath('../assets/img/italy_flag.png')" alt="#" />
+      <img
+        class="lang"
+        :src="getImagePath('../assets/img/italy_flag.png')"
+        alt="#"
+      />
     </div>
-    <div v-show="originalLanguage !== 'it' && originalLanguage !== 'en'">
-      Lingua: {{ originalLanguage }}
+    <div
+      v-show="
+        tvSeries.original_language !== 'it' &&
+        tvSeries.original_language !== 'en'
+      "
+    >
+      Lingua: {{ tvSeries.original_language }}
     </div>
-    <div>Voto: {{ vote }}</div>
+    <div>Voto: {{ tvSeries.vote_average }}</div>
+    <img
+      v-if="tvSeries.poster_path !== null"
+      :src="store.apiImgUrl + tvSeries.poster_path"
+      alt=""
+    />
   </li>
 </template>
 
@@ -38,6 +61,10 @@ li {
 }
 
 img {
+  max-width: 100%;
+}
+
+img.lang {
   max-width: 25px;
   height: 15px;
 }
