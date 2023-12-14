@@ -42,12 +42,12 @@ export default {
   </header>
 </template>
 
-<style>
+<style lang="scss">
 header {
-  text-align: center;
-}
-
-h1 {
-  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30px;
+  background-color: black;
 }
 </style>
