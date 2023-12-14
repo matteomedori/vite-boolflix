@@ -1,9 +1,29 @@
 <script>
 import SearchBar from "./SearchBar.vue";
+import { store } from "../store";
+import axios from "axios";
+
 export default {
   name: "AppHeader",
   components: {
     SearchBar,
+  },
+  data() {
+    return {
+      store,
+    };
+  },
+  methods: {
+    searchMovie() {
+      axios
+        .get(this.store.apiDefaultUrl, {
+          params: { api_key: this.store.apiKey, query: this.store.searchKey },
+        })
+        .then((response) => {
+          this.store.searchResults = response.data.results;
+        });
+      this.store.searchKey = "";
+    },
   },
 };
 </script>
@@ -11,16 +31,16 @@ export default {
 <template>
   <header>
     <h1>Boolflix</h1>
-    <SearchBar />
+    <SearchBar @search="searchMovie" />
   </header>
 </template>
 
 <style>
 header {
   text-align: center;
+}
 
-  h1 {
-    margin: 20px 0;
-  }
+h1 {
+  margin: 20px 0;
 }
 </style>
