@@ -12,6 +12,9 @@ export default {
     getImagePath(url) {
       return new URL(url, import.meta.url).href;
     },
+    voteStars(vote) {
+      return Math.round(vote / 2);
+    },
   },
 };
 </script>
@@ -43,7 +46,12 @@ export default {
     >
       Lingua: {{ movie.original_language }}
     </div>
-    <div>Voto: {{ movie.vote_average }}</div>
+    <div>
+      Voto:
+      <span v-for="star in voteStars(movie.vote_average)"
+        ><font-awesome-icon icon="fa-solid fa-star"
+      /></span>
+    </div>
     <img
       v-if="movie.poster_path !== null"
       :src="store.apiImgUrl + movie.poster_path"
@@ -66,5 +74,9 @@ img {
 img.lang {
   max-width: 25px;
   height: 15px;
+}
+
+.fa-star {
+  color: #ffbd00;
 }
 </style>
