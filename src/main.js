@@ -1,6 +1,6 @@
 import { createApp } from "vue";
-// entry point css
-import "./assets/css/style.css";
+// entry point scss
+import "./assets/css/style.scss";
 
 import App from "./App.vue";
 
