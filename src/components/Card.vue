@@ -1,8 +1,8 @@
 <script>
 import { store } from "../store";
 export default {
-  name: "Movie",
-  props: ["movie"],
+  name: "Card",
+  props: ["title", "originalTitle", "originalLanguage", "vote", "imgPath"],
   data() {
     return {
       store,
@@ -12,8 +12,8 @@ export default {
     getImagePath(url) {
       return new URL(url, import.meta.url).href;
     },
-    voteStars(vote) {
-      return Math.round(vote / 2);
+    voteStars() {
+      return Math.round(this.vote / 2);
     },
   },
 };
@@ -22,12 +22,12 @@ export default {
 <template>
   <li
     :style="{
-      backgroundImage: 'url(' + store.apiImgUrl + movie.poster_path + ')',
+      backgroundImage: 'url(' + store.apiImgUrl + imgPath + ')',
     }"
   >
-    <h3>Titolo: {{ movie.title }}</h3>
-    <h4>Titolo originale: {{ movie.original_title }}</h4>
-    <p v-if="movie.original_language === 'en'">
+    <h3>Titolo: {{ title }}</h3>
+    <h4>Titolo originale: {{ originalTitle }}</h4>
+    <p v-if="originalLanguage === 'en'">
       Lingua:
       <img
         class="lang"
@@ -35,7 +35,7 @@ export default {
         alt="#"
       />
     </p>
-    <p v-else-if="movie.original_language === 'it'">
+    <p v-else-if="originalLanguage === 'it'">
       Lingua:
       <img
         class="lang"
@@ -43,10 +43,10 @@ export default {
         alt="#"
       />
     </p>
-    <p v-else>Lingua: {{ movie.original_language }}</p>
+    <p v-else>Lingua: {{ originalLanguage }}</p>
     <p>
       Voto:
-      <span v-for="star in voteStars(movie.vote_average)"
+      <span v-for="star in voteStars()"
         ><font-awesome-icon icon="fa-solid fa-star"
       /></span>
     </p>

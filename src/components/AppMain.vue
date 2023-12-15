@@ -1,13 +1,11 @@
 <script>
 import { store } from "../store";
-import Movie from "./Movie.vue";
-import TvSeries from "./TvSeries.vue";
+import Card from "./Card.vue";
 
 export default {
   name: "AppMain",
   components: {
-    Movie,
-    TvSeries,
+    Card,
   },
   data() {
     return {
@@ -22,13 +20,24 @@ export default {
     <div class="container">
       <h2 v-if="store.searchMovieResults.length !== 0">Movies</h2>
       <ul>
-        <Movie v-for="movie in store.searchMovieResults" :movie="movie" />
+        <Card
+          v-for="movie in store.searchMovieResults"
+          :title="movie.title"
+          :originalTitle="movie.original_title"
+          :originalLanguage="movie.original_language"
+          :vote="movie.vote_average"
+          :imgPath="movie.poster_path"
+        />
       </ul>
       <h2 v-if="store.searchTvResults.length !== 0">Tv Series</h2>
       <ul>
-        <TvSeries
+        <Card
           v-for="tvSeries in store.searchTvResults"
-          :tvSeries="tvSeries"
+          :title="tvSeries.name"
+          :originalTitle="tvSeries.original_name"
+          :originalLanguage="tvSeries.original_language"
+          :vote="tvSeries.vote_average"
+          :imgPath="tvSeries.poster_path"
         />
       </ul>
     </div>
