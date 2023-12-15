@@ -8,53 +8,55 @@ export default {
       store,
     };
   },
+  computed: {
+    voteStars() {
+      return Math.round(this.vote / 2);
+    },
+  },
   methods: {
     getImagePath(url) {
       return new URL(url, import.meta.url).href;
-    },
-    voteStars() {
-      return Math.round(this.vote / 2);
     },
   },
 };
 </script>
 
 <template>
-  <li
-    :style="{
-      backgroundImage: 'url(' + store.apiImgUrl + imgPath + ')',
-    }"
-  >
-    <h3>Titolo: {{ title }}</h3>
-    <h4>Titolo originale: {{ originalTitle }}</h4>
-    <p v-if="originalLanguage === 'en'">
-      Lingua:
-      <img
-        class="lang"
-        :src="getImagePath('../assets/img/uk_flag.png')"
-        alt="#"
-      />
-    </p>
-    <p v-else-if="originalLanguage === 'it'">
-      Lingua:
-      <img
-        class="lang"
-        :src="getImagePath('../assets/img/italy_flag.png')"
-        alt="#"
-      />
-    </p>
-    <p v-else>Lingua: {{ originalLanguage }}</p>
-    <p>
-      Voto:
-      <span v-for="star in voteStars()"
-        ><font-awesome-icon icon="fa-solid fa-star"
-      /></span>
-    </p>
-    <!-- <img
-      v-if="movie.poster_path !== null"
-      :src="store.apiImgUrl + movie.poster_path"
+  <li>
+    <div class="card-info">
+      <h3>Titolo: {{ title }}</h3>
+      <h4>Titolo originale: {{ originalTitle }}</h4>
+      <p v-if="originalLanguage === 'en'">
+        Lingua:
+        <img
+          class="lang"
+          :src="getImagePath('../assets/img/uk_flag.png')"
+          alt="#"
+        />
+      </p>
+      <p v-else-if="originalLanguage === 'it'">
+        Lingua:
+        <img
+          class="lang"
+          :src="getImagePath('../assets/img/italy_flag.png')"
+          alt="#"
+        />
+      </p>
+      <p v-else>Lingua: {{ originalLanguage }}</p>
+      <p>
+        Voto:
+        <span v-for="star in voteStars"
+          ><font-awesome-icon icon="fa-solid fa-star"
+        /></span>
+      </p>
+    </div>
+
+    <img
+      class="background"
+      v-if="imgPath !== null"
+      :src="store.apiImgUrl + imgPath"
       alt=""
-    /> -->
+    />
   </li>
 </template>
 
@@ -64,13 +66,16 @@ li {
   border: 2px solid #6d5d6e;
   width: 342px;
   height: 507px;
+  position: relative;
 
-  &:hover {
-    background-image: none;
+  .card-info {
+    display: none;
   }
-
-  img {
+  img.background {
     max-width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 
   img.lang {
@@ -80,6 +85,14 @@ li {
 
   .fa-star {
     color: #ffbd00;
+  }
+
+  &:hover .card-info {
+    display: block;
+  }
+
+  &:hover .background {
+    display: none;
   }
 }
 </style>
