@@ -25,6 +25,7 @@ export default {
       :originalLanguage="tvSeries.original_language"
       :vote="tvSeries.vote_average"
       :imgPath="tvSeries.poster_path"
+      :overview="tvSeries.overview"
     />
   </ul>
 </template>

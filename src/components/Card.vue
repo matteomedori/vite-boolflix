@@ -2,7 +2,14 @@
 import { store } from "../store";
 export default {
   name: "Card",
-  props: ["title", "originalTitle", "originalLanguage", "vote", "imgPath"],
+  props: [
+    "title",
+    "originalTitle",
+    "originalLanguage",
+    "vote",
+    "imgPath",
+    "overview",
+  ],
   data() {
     return {
       store,
@@ -49,6 +56,7 @@ export default {
           ><font-awesome-icon icon="fa-solid fa-star"
         /></span>
       </p>
+      <p>{{ overview }}</p>
     </div>
 
     <img
@@ -70,21 +78,27 @@ li {
 
   .card-info {
     display: none;
+    height: 100%;
+    background-color: #393646;
+    padding: 20px;
+
+    & > * {
+      margin-bottom: 5px;
+    }
+    img.lang {
+      max-width: 25px;
+      height: 15px;
+    }
+
+    .fa-star {
+      color: #ffbd00;
+    }
   }
   img.background {
     max-width: 100%;
     position: absolute;
     top: 0;
     left: 0;
-  }
-
-  img.lang {
-    max-width: 25px;
-    height: 15px;
-  }
-
-  .fa-star {
-    color: #ffbd00;
   }
 
   &:hover .card-info {

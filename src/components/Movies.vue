@@ -25,6 +25,7 @@ export default {
       :originalLanguage="movie.original_language"
       :vote="movie.vote_average"
       :imgPath="movie.poster_path"
+      :overview="movie.overview"
     />
   </ul>
 </template>
