@@ -6,7 +6,35 @@ TYPOGRAPHY
 
 h1 {
   font-size: 40px;
-  color: red;
+  color: #f4eee0;
   letter-spacing: 2px;
   text-transform: uppercase;
+}
+
+h2 {
+  padding: 40px 0;
+  font-size: 35px;
+  position: relative;
+}
+
+h2:before {
+  content: "";
+  display: block;
+  width: 30%;
+  height: 2px;
+  background: #6d5d6e;
+  left: 10%;
+  top: 50%;
+  position: absolute;
+}
+
+h2:after {
+  content: "";
+  display: block;
+  width: 30%;
+  height: 2px;
+  background: #6d5d6e;
+  right: 10%;
+  top: 50%;
+  position: absolute;
 }

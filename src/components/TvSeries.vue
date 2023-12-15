@@ -20,64 +20,72 @@ export default {
 </script>
 
 <template>
-  <li>
-    <div>Titolo: {{ tvSeries.name }}</div>
-    <div>Titolo originale: {{ tvSeries.original_name }}</div>
-    <div v-show="tvSeries.original_language === 'en'">
-      Lingua:
-      <img
-        class="lang"
-        :src="getImagePath('../assets/img/uk_flag.png')"
-        alt="#"
-      />
-    </div>
-    <div v-show="tvSeries.original_language === 'it'">
-      Lingua:
-      <img
-        class="lang"
-        :src="getImagePath('../assets/img/italy_flag.png')"
-        alt="#"
-      />
-    </div>
-    <div
-      v-show="
-        tvSeries.original_language !== 'it' &&
-        tvSeries.original_language !== 'en'
-      "
-    >
-      Lingua: {{ tvSeries.original_language }}
-    </div>
-    <div>
-      Voto:
-      <span v-for="star in voteStars(tvSeries.vote_average)"
-        ><font-awesome-icon icon="fa-solid fa-star"
-      /></span>
-    </div>
-    <img
+  <li
+    :style="{
+      backgroundImage: 'url(' + store.apiImgUrl + tvSeries.poster_path + ')',
+    }"
+  >
+    <div class="card-info">
+      <h3>Titolo: {{ tvSeries.name }}</h3>
+      <h4>Titolo originale: {{ tvSeries.original_name }}</h4>
+      <p v-if="tvSeries.original_language === 'en'">
+        Lingua:
+        <img
+          class="lang"
+          :src="getImagePath('../assets/img/uk_flag.png')"
+          alt="#"
+        />
+      </p>
+      <p v-else-if="tvSeries.original_language === 'it'">
+        Lingua:
+        <img
+          class="lang"
+          :src="getImagePath('../assets/img/italy_flag.png')"
+          alt="#"
+        />
+      </p>
+      <p v-else>Lingua: {{ tvSeries.original_language }}</p>
+      <p>
+        Voto:
+        <span v-for="star in voteStars(tvSeries.vote_average)"
+          ><font-awesome-icon icon="fa-solid fa-star"
+        /></span>
+      </p>
+      <!-- <img
       v-if="tvSeries.poster_path !== null"
       :src="store.apiImgUrl + tvSeries.poster_path"
       alt=""
-    />
+    /> -->
+    </div>
   </li>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 li {
   margin-bottom: 10px;
-  width: calc(100% / 4);
-  border: 1px solid black;
-}
+  border: 2px solid #6d5d6e;
+  width: 342px;
+  height: 507px;
 
-img {
-  max-width: 100%;
-}
+  .card-info {
+    display: none;
 
-img.lang {
-  max-width: 25px;
-  height: 15px;
-}
+    img {
+      max-width: 100%;
+    }
 
-.fa-star {
-  color: #ffbd00;
+    img.lang {
+      max-width: 25px;
+      height: 15px;
+    }
+
+    .fa-star {
+      color: #ffbd00;
+    }
+  }
+
+  &:hover .card-info {
+    display: block;
+  }
 }
 </style>

@@ -20,63 +20,66 @@ export default {
 </script>
 
 <template>
-  <li>
-    <div>Titolo: {{ movie.title }}</div>
-    <div>Titolo originale: {{ movie.original_title }}</div>
-    <div v-show="movie.original_language === 'en'">
+  <li
+    :style="{
+      backgroundImage: 'url(' + store.apiImgUrl + movie.poster_path + ')',
+    }"
+  >
+    <h3>Titolo: {{ movie.title }}</h3>
+    <h4>Titolo originale: {{ movie.original_title }}</h4>
+    <p v-if="movie.original_language === 'en'">
       Lingua:
       <img
         class="lang"
         :src="getImagePath('../assets/img/uk_flag.png')"
         alt="#"
       />
-    </div>
-    <div v-show="movie.original_language === 'it'">
+    </p>
+    <p v-else-if="movie.original_language === 'it'">
       Lingua:
       <img
         class="lang"
         :src="getImagePath('../assets/img/italy_flag.png')"
         alt="#"
       />
-    </div>
-    <div
-      v-show="
-        movie.original_language !== 'it' && movie.original_language !== 'en'
-      "
-    >
-      Lingua: {{ movie.original_language }}
-    </div>
-    <div>
+    </p>
+    <p v-else>Lingua: {{ movie.original_language }}</p>
+    <p>
       Voto:
       <span v-for="star in voteStars(movie.vote_average)"
         ><font-awesome-icon icon="fa-solid fa-star"
       /></span>
-    </div>
-    <img
+    </p>
+    <!-- <img
       v-if="movie.poster_path !== null"
       :src="store.apiImgUrl + movie.poster_path"
       alt=""
-    />
+    /> -->
   </li>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 li {
   margin-bottom: 10px;
-  width: calc(100% / 4);
-  border: 1px solid black;
-}
+  border: 2px solid #6d5d6e;
+  width: 342px;
+  height: 507px;
 
-img {
-  max-width: 100%;
-}
+  &:hover {
+    background-image: none;
+  }
 
-img.lang {
-  max-width: 25px;
-  height: 15px;
-}
+  img {
+    max-width: 100%;
+  }
 
-.fa-star {
-  color: #ffbd00;
+  img.lang {
+    max-width: 25px;
+    height: 15px;
+  }
+
+  .fa-star {
+    color: #ffbd00;
+  }
 }
 </style>

@@ -48,6 +48,6 @@ header {
   align-items: center;
   justify-content: space-between;
   padding: 30px;
-  background-color: black;
+  background-color: #393646;
 }
 </style>
