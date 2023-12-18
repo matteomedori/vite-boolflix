@@ -14,7 +14,7 @@ export default {
     };
   },
   methods: {
-    searchMovie() {
+    searchMovieAndTv() {
       axios
         .get(this.store.apiMovieUrl, {
           params: { api_key: this.store.apiKey, query: this.store.searchKey },
@@ -38,7 +38,7 @@ export default {
 <template>
   <header>
     <h1>Boolflix</h1>
-    <SearchBar @search="searchMovie" />
+    <SearchBar @search="searchMovieAndTv" />
   </header>
 </template>
 

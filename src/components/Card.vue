@@ -19,10 +19,6 @@ export default {
       genres: "",
     };
   },
-  mounted() {
-    this.showGenres();
-    // this.showCast();
-  },
   computed: {
     voteStars() {
       return Math.round(this.vote / 2);
@@ -66,7 +62,7 @@ export default {
 
 <template>
   <li>
-    <div class="card-info">
+    <!-- <div class="card-info">
       <h3>Titolo: {{ title }}</h3>
       <h4>Titolo originale: {{ originalTitle }}</h4>
       <p v-if="originalLanguage === 'en'">
@@ -93,30 +89,95 @@ export default {
         /></span>
       </p>
       <p>{{ overview }}</p>
-      <p>Generi: {{ genres }}</p>
-    </div>
+    </div> -->
 
-    <img
-      class="background"
-      v-if="imgPath !== null"
-      :src="store.apiImgUrl + imgPath"
-      alt=""
-    />
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <img
+          class="background"
+          v-if="imgPath !== null"
+          :src="store.apiImgUrl + imgPath"
+          alt=""
+        />
+      </div>
+
+      <div class="flip-card-back">
+        <h3>Titolo: {{ title }}</h3>
+        <h4>Titolo originale: {{ originalTitle }}</h4>
+        <p v-if="originalLanguage === 'en'">
+          Lingua:
+          <img
+            class="lang"
+            :src="getImagePath('../assets/img/uk_flag.png')"
+            alt="#"
+          />
+        </p>
+        <p v-else-if="originalLanguage === 'it'">
+          Lingua:
+          <img
+            class="lang"
+            :src="getImagePath('../assets/img/italy_flag.png')"
+            alt="#"
+          />
+        </p>
+        <p v-else>Lingua: {{ originalLanguage }}</p>
+        <p>
+          Voto:
+          <span v-for="star in voteStars"
+            ><font-awesome-icon icon="fa-solid fa-star"
+          /></span>
+        </p>
+        <p>{{ overview }}</p>
+      </div>
+    </div>
   </li>
 </template>
 
 <style lang="scss" scoped>
 li {
+  background-color: transparent;
   margin-bottom: 10px;
   border: 2px solid #6d5d6e;
   width: 342px;
   height: 507px;
-  position: relative;
 
-  .card-info {
-    display: none;
+  .flip-card-inner {
+    position: relative;
+    width: 100%;
     height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+  }
+
+  &:hover .flip-card-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flip-card-front,
+  .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+  }
+
+  /* Card front */
+  .flip-card-front {
     background-color: #393646;
+    color: black;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  /* Card back */
+  .flip-card-back {
+    background-color: #393646;
+    color: white;
+    transform: rotateY(180deg);
     padding: 20px;
 
     & > * {
@@ -130,21 +191,6 @@ li {
     .fa-star {
       color: #ffbd00;
     }
-  }
-  img.background {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-
-  &:hover .card-info {
-    display: block;
-  }
-
-  &:hover .background {
-    display: none;
   }
 }
 </style>

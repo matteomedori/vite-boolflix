@@ -12,15 +12,17 @@ export default {
 
 <template>
   <div class="searchbar">
-    <label for="search" hidden>Search</label>
-    <input
-      type="text"
-      placeholder="Films, TV Series..."
-      name="search"
-      id="search"
-      v-model="store.searchKey"
-    />
-    <button type="submit" @click="$emit('search')">Search</button>
+    <form @submit.prevent="$emit('search')">
+      <label for="search" hidden>Search</label>
+      <input
+        type="text"
+        placeholder="Films, TV Series..."
+        name="search"
+        id="search"
+        v-model="store.searchKey"
+      />
+      <button type="submit">Search</button>
+    </form>
   </div>
 </template>
 
