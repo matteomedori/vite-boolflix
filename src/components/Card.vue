@@ -21,6 +21,7 @@ export default {
   },
   mounted() {
     this.showGenres();
+    // this.showCast();
   },
   computed: {
     voteStars() {
@@ -36,7 +37,6 @@ export default {
         .get(" https://api.themoviedb.org/3/movie/" + this.id, {
           params: {
             api_key: this.store.apiKey,
-            // language: "en-US",
             append_to_response: "credits",
           },
         })
@@ -45,6 +45,19 @@ export default {
             this.genres += response.data.genres[i].name;
             if (i !== response.data.genres.length - 1) this.genres += ", ";
           }
+        });
+    },
+    showCast() {
+      axios
+        .get(" https://api.themoviedb.org/3/movie/" + this.id, {
+          params: {
+            api_key: this.store.apiKey,
+            // language: "en-US",
+            append_to_response: "credits",
+          },
+        })
+        .then((response) => {
+          console.log(response.data.credits.cast);
         });
     },
   },
