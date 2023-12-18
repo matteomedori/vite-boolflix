@@ -21,10 +21,12 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+@use "../assets/css/partials/variables" as *;
+
 main {
   text-align: center;
-  background-color: #4f4557;
-  color: #f4eee0;
+  background-color: $secondary-color;
+  color: $text-color;
 
   :deep(ul) {
     display: flex;

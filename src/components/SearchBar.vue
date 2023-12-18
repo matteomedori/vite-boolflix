@@ -27,6 +27,8 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+@use "../assets/css/partials/variables" as *;
+
 input[type="text"],
 button {
   padding: 10px;
@@ -34,8 +36,8 @@ button {
 }
 
 button {
-  background: #f4eee0;
-  color: #6d5d6e;
+  background: $text-color;
+  color: $tertiary-color;
   cursor: pointer;
   text-transform: uppercase;
 }

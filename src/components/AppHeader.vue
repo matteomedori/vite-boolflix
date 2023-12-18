@@ -43,11 +43,13 @@ export default {
 </template>
 
 <style lang="scss">
+@use "../assets/css/partials/variables" as *;
+
 header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 30px;
-  background-color: #393646;
+  background-color: $main-color;
 }
 </style>

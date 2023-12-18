@@ -62,35 +62,6 @@ export default {
 
 <template>
   <li>
-    <!-- <div class="card-info">
-      <h3>Titolo: {{ title }}</h3>
-      <h4>Titolo originale: {{ originalTitle }}</h4>
-      <p v-if="originalLanguage === 'en'">
-        Lingua:
-        <img
-          class="lang"
-          :src="getImagePath('../assets/img/uk_flag.png')"
-          alt="#"
-        />
-      </p>
-      <p v-else-if="originalLanguage === 'it'">
-        Lingua:
-        <img
-          class="lang"
-          :src="getImagePath('../assets/img/italy_flag.png')"
-          alt="#"
-        />
-      </p>
-      <p v-else>Lingua: {{ originalLanguage }}</p>
-      <p>
-        Voto:
-        <span v-for="star in voteStars"
-          ><font-awesome-icon icon="fa-solid fa-star"
-        /></span>
-      </p>
-      <p>{{ overview }}</p>
-    </div> -->
-
     <div class="flip-card-inner">
       <div class="flip-card-front">
         <img
@@ -134,10 +105,11 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+@use "../assets/css/partials/variables" as *;
+
 li {
   background-color: transparent;
   margin-bottom: 10px;
-  border: 2px solid #6d5d6e;
   width: 342px;
   height: 507px;
 
@@ -148,6 +120,7 @@ li {
     text-align: center;
     transition: transform 0.8s;
     transform-style: preserve-3d;
+    border: 2px solid $tertiary-color;
   }
 
   &:hover .flip-card-inner {
@@ -164,7 +137,7 @@ li {
 
   /* Card front */
   .flip-card-front {
-    background-color: #393646;
+    background-color: $main-color;
     color: black;
 
     img {
@@ -175,10 +148,10 @@ li {
 
   /* Card back */
   .flip-card-back {
-    background-color: #393646;
-    color: white;
+    background-color: $main-color;
     transform: rotateY(180deg);
     padding: 20px;
+    overflow: auto;
 
     & > * {
       margin-bottom: 5px;
