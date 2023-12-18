@@ -26,6 +26,7 @@ export default {
       :vote="movie.vote_average"
       :imgPath="movie.poster_path"
       :overview="movie.overview"
+      :id="movie.id"
     />
   </ul>
 </template>

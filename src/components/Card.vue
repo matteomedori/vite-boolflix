@@ -1,5 +1,7 @@
 <script>
 import { store } from "../store";
+import axios from "axios";
+
 export default {
   name: "Card",
   props: [
@@ -9,11 +11,16 @@ export default {
     "vote",
     "imgPath",
     "overview",
+    "id",
   ],
   data() {
     return {
       store,
+      genres: "",
     };
+  },
+  mounted() {
+    this.showGenres();
   },
   computed: {
     voteStars() {
@@ -23,6 +30,22 @@ export default {
   methods: {
     getImagePath(url) {
       return new URL(url, import.meta.url).href;
+    },
+    showGenres() {
+      axios
+        .get(" https://api.themoviedb.org/3/movie/" + this.id, {
+          params: {
+            api_key: this.store.apiKey,
+            // language: "en-US",
+            append_to_response: "credits",
+          },
+        })
+        .then((response) => {
+          for (let i = 0; i < response.data.genres.length; i++) {
+            this.genres += response.data.genres[i].name;
+            if (i !== response.data.genres.length - 1) this.genres += ", ";
+          }
+        });
     },
   },
 };
@@ -57,6 +80,7 @@ export default {
         /></span>
       </p>
       <p>{{ overview }}</p>
+      <p>Generi: {{ genres }}</p>
     </div>
 
     <img
@@ -95,7 +119,8 @@ li {
     }
   }
   img.background {
-    max-width: 100%;
+    width: 100%;
+    height: 100%;
     position: absolute;
     top: 0;
     left: 0;
